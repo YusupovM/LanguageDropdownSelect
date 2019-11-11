@@ -1,0 +1,35 @@
+<div class="dropdown">
+  <input type="search"
+         placeholder="Search"
+         autocomplete="off"
+         id="inputSearch"
+         [(ngModel)]="search"
+         (ngModelChange)="onChangeSearch($event)"
+         (focus)="dropdownActive=true">
+
+  <label class="arrow"
+         (click)="arrowToggle()">
+    <ng-container *ngIf="dropdownActive; else dropdownNotActive">&#9650;</ng-container>
+    <ng-template #dropdownNotActive>&#9660;</ng-template>
+  </label>
+
+  <ul *ngIf="dropdownActive" (scroll)="scrollHandler($event)">
+    <ng-container *ngIf="automation.length">
+      <li class="title">Automation</li>
+      <li *ngFor="let item of automation"
+          (click)="onSelectItem(item.name)"
+          [class.mapped]="item.mapped">
+        {{item.name}}
+      </li>
+    </ng-container>
+
+    <ng-container *ngIf="monitors.length">
+      <li class="title">Monitors</li>
+      <li *ngFor="let item of monitors;"
+          (click)="onSelectItem(item.name)"
+          [class.mapped]="item.mapped">
+        {{item.name}}
+      </li>
+    </ng-container>
+  </ul>
+</div>
